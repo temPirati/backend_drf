@@ -19,22 +19,23 @@ class ListRoom(SerializerMapping, generics.ListCreateAPIView):
     }
 
     def post(self, request, format=None):
-
-        if type(request.data['roomArray']) is list:
-            count = 1
-            form_error_msg = "Error in Form nr "
-            form_success_msg = "Created Form nr "
-            form_msg = ""
-            for room in request.data['roomArray']:
-                post = RoomSerializerPost(data=room, context={'request': request})
-                if post.is_valid():
-                    post.save()
-                    form_msg = form_msg + form_success_msg + str(count) + ' '
-                    count = count + 1
-                else:
-                    form_msg = form_msg + form_error_msg + str(count) + ' '
-                    count = count + 1
-            return Response(form_msg, status=status.HTTP_201_CREATED)
+        key = 'roomArray'
+        if key in request.data:
+            if type(request.data['roomArray']) is list:
+                count = 1
+                form_error_msg = "Error in Form nr "
+                form_success_msg = "Created Form nr "
+                form_msg = ""
+                for room in request.data['roomArray']:
+                    post = RoomSerializerPost(data=room, context={'request': request})
+                    if post.is_valid():
+                        post.save()
+                        form_msg = form_msg + form_success_msg + str(count) + ' '
+                        count = count + 1
+                    else:
+                        form_msg = form_msg + form_error_msg + str(count) + ' '
+                        count = count + 1
+                return Response(form_msg, status=status.HTTP_201_CREATED)
         else:
             post = RoomSerializerPost(data=request.data, context={'request': request})
             if post.is_valid():

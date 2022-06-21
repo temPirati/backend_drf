@@ -3,8 +3,8 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, Permi
 from django.db import models
 
 options = (
-    ('conference', 'Conference'),
-    ('meeting', 'Meeting'),
+    ('Conference', 'Conference'),
+    ('Meeting', 'Meeting'),
 )
 
 

@@ -3,11 +3,13 @@ from django.test import TestCase
 from model.models import Reservation, Room, User
 from datetime import datetime, timedelta
 
+
 class Test_Create_Room(TestCase):
 
     @classmethod
     def setUpTestData(cls):
         cls.test_room = Room.objects.create(title='Room_Test', capacity=1, description='Room_Test', room_type='Conference')
+
 
     def test_room_detail(self):
         room = Room.objects.get(id=1)
@@ -19,6 +21,7 @@ class Test_Create_Room(TestCase):
         self.assertEqual(capacity, '1')
         self.assertEqual(description, 'Room_Test')
         self.assertEqual(room_type, 'Conference')
+
 
 class Test_Create_User(TestCase):
 
@@ -42,7 +45,7 @@ class Test_Create_Reservation(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.test_user = User.objects.create(username='admin', email='admin@a.com', first_name='admin')
-        cls.test_room = Room.objects.create(title='Room_Test', capacity=1, description='Room_Test', room_type='Conferece')
+        cls.test_room = Room.objects.create(title='Room_Test', capacity=1, description='Room_Test', room_type='Conference')
         cls.test_reservation = Reservation.objects.create(
             room_id=cls.test_room,
             user_id=cls.test_user,

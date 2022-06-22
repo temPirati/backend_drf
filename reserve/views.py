@@ -132,7 +132,7 @@ class ReservationCreate(generics.CreateAPIView):
 
 class ListUsers(generics.ListAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = MiniUserSerializer
 
 
 class ReservationDetailData(generics.RetrieveAPIView):

@@ -49,7 +49,7 @@ class SmallRoomSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=150)
 
 
-class UserSerializer(serializers.Serializer):
+class MiniUserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(max_length=20)
 
@@ -58,3 +58,15 @@ class ReservationSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Reservation
         fields = ('room_id', 'user_id', 'start', 'duration_hours', 'duration_minutes')
+
+
+class UserSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    email = serializers.EmailField()
+    username = serializers.CharField()
+    first_name = serializers.CharField()
+
+
+class UserPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User

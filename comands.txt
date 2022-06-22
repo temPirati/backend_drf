@@ -6,3 +6,5 @@ admin@a.com
 admin
 admin
 py manage.py runserver
+coverage run --omit='*/venv/*' manage.py test
+coverage html

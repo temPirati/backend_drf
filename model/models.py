@@ -52,6 +52,10 @@ class CustomAccountManager(BaseUserManager):
 
 class User(ITWorks, AbstractBaseUser, PermissionsMixin):
 
+    class Meta:
+        verbose_name = "User"
+        verbose_name_plural = "Users"
+
     username = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
@@ -79,12 +83,12 @@ class User(ITWorks, AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name', 'email']
 
-    class Meta:
-        verbose_name = "User"
-        verbose_name_plural = "Users"
-
 
 class Room(ITWorks):
+
+    class Meta:
+        verbose_name = "Room"
+        verbose_name_plural = "Rooms"
 
     title = models.CharField(max_length=70)
     capacity = models.IntegerField()
@@ -97,22 +101,19 @@ class Room(ITWorks):
         default="images/default.png",
     )
 
-    class Meta:
-        verbose_name = "Room"
-        verbose_name_plural = "Rooms"
-
 
 class Reservation(ITWorks):
+
+    class Meta:
+        verbose_name = "Reservation"
+        verbose_name_plural = "Reservations"
+
     room_id = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="reservations")
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     start = models.DateTimeField()
     end = models.DateTimeField(blank=True)
     duration_hours = models.IntegerField()
     duration_minutes = models.IntegerField()
-
-    class Meta:
-        verbose_name = "Reservation"
-        verbose_name_plural = "Reservations"
 
     def save(self, *args, **kwargs):
         self.end = self.start + timedelta(hours=self.duration_hours, minutes=self.duration_minutes)
